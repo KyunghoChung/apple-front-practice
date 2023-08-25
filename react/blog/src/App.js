@@ -6,6 +6,12 @@ function App() {
 
   let [title, titleChange] = useState(['남자코트 추천', '강남 우동맛집', '파이썬독학']);
   let [likes, likesUp] = useState(0);
+
+  let sortedTitle = [...title].sort(function(a, b){
+    if(a > b) return 1;
+    if(a < b) return -1;
+    if(a === b) return 0; 
+  });
   
   return (
     <div className="App">
@@ -42,6 +48,9 @@ function App() {
         <h4>{title[2]}</h4>
         <p>2월 17일 발행</p>
       </div>
+      <div>
+          <button onClick={() =>{titleChange(sortedTitle)}}>글 제목 가나다순으로 정렬</button>
+        </div>
     </div>
   );
 }
