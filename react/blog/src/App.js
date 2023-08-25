@@ -6,13 +6,14 @@ function App() {
 
   let [title, titleChange] = useState(['남자코트 추천', '강남 우동맛집', '파이썬독학']);
   let [likes, likesUp] = useState(0);
+  let [modal, setModal] = useState(false);
 
   // let sortedTitle = [...title].sort(function(a, b){
   //   if(a > b) return 1;
   //   if(a < b) return -1;
   //   if(a === b) return 0; 
   // });
-  
+
   return (
     <div className="App">
       <div className='black-nav'>
@@ -45,13 +46,27 @@ function App() {
         <p>2월 17일 발행</p>
       </div>
       <div className='list'>
-        <h4>{title[2]}</h4>
+        {/* 단순 반전 */}
+        <h4 onClick={()=>setModal(!modal)}>{title[2]}</h4>
+        {/* 삼항 연산자 */}
+        <h4 onClick={()=>{modal == false ? setModal(true) : setModal(false)}}>{title[2]}</h4>   
+        {/* if/else문 */}
+        <h4 onClick={()=>{
+          if(modal == false){
+            setModal(true);
+          }
+          else{
+            setModal(false);
+          }
+          }}>{title[2]}</h4>
         <p>2월 17일 발행</p>
       </div>
       {/* <div>
           <button onClick={() =>{titleChange(sortedTitle)}}>글 제목 가나다순으로 정렬</button>
-        </div> */}
-      <Modal></Modal>
+      </div> */}
+      {
+      modal == true ? <Modal/> : null
+      }
       <ModalArrow></ModalArrow>
     </div>
   );
