@@ -5,7 +5,7 @@ import './App.css';
 function App() {
 
   let [title, titleChange] = useState(['남자코트 추천', '강남 우동맛집', '파이썬독학']);
-  let [likes, likesUp] = useState(0);
+  let [likes, likesUp] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
 
   // let sortedTitle = [...title].sort(function(a, b){
@@ -44,7 +44,13 @@ function App() {
         title.map(function(a, i){
           return (
             <div className='list'>
-            <h4>{ title[i] }  <span onClick={()=>likesUp(likes + 1)}>👍</span> {likes}</h4>
+            <h4>{ title[i] }  
+            <span onClick={()=>{
+              let copy = [...likes];
+              copy[i] = copy[i] + 1;
+              likesUp(copy);
+            }}>👍</span> {likes[i]}
+            </h4>
             <p>2월 17일 발행</p>
             </div>
           )
