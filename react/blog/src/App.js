@@ -44,7 +44,7 @@ function App() {
         title.map(function(a, i){
           return (
             <div className='list'>
-            <h4>{ title[i] }  
+            <h4 onClick={() => {setModal(!modal)}}>{ title[i] }  
             <span onClick={()=>{
               let copy = [...likes];
               copy[i] = copy[i] + 1;
@@ -56,17 +56,26 @@ function App() {
           )
         })
       }
+
+      {
+        modal == true ? <Modal color = {'yellow'} title = {title} titleChange={titleChange}/> : null
+      }
       {/* <ModalArrow></ModalArrow> */}
     </div>
   );
 }
 
-function Modal(){
+function Modal(props){
   return(
-    <div className='modal'>
-      <h4>제목</h4>
+    <div className='modal' style={{background : props.color}}>
+      <h4>{ props.title[0] }</h4>
       <p>날짜</p>
       <p>상세 내용</p>
+      <button onClick={()=>{
+        let copy = [...props.title];
+        copy[0] = "여자 코트 추천";
+        props.titleChange(copy); 
+      }}>글 수정</button>
     </div>
   );
 }
