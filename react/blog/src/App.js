@@ -7,6 +7,7 @@ function App() {
   let [title, titleChange] = useState(['남자코트 추천', '강남 우동맛집', '파이썬독학']);
   let [likes, likesUp] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
+  let [modalTitle, modalTitleChange] = useState(0);
 
   // let sortedTitle = [...title].sort(function(a, b){
   //   if(a > b) return 1;
@@ -44,13 +45,13 @@ function App() {
         title.map(function(a, i){
           return (
             <div className='list'>
-            <h4 onClick={() => {setModal(!modal)}}>{ title[i] }  
+            <h4 onClick={() => {setModal(!modal); modalTitleChange(i)}}>{ title[i] } </h4> 
             <span onClick={()=>{
               let copy = [...likes];
               copy[i] = copy[i] + 1;
               likesUp(copy);
             }}>👍</span> {likes[i]}
-            </h4>
+            
             <p>2월 17일 발행</p>
             </div>
           )
@@ -58,7 +59,7 @@ function App() {
       }
 
       {
-        modal == true ? <Modal color = {'yellow'} title = {title} titleChange={titleChange}/> : null
+        modal == true ? <Modal modalTitle = {modalTitle} title = {title} titleChange={titleChange}/> : null
       }
       {/* <ModalArrow></ModalArrow> */}
     </div>
@@ -67,8 +68,8 @@ function App() {
 
 function Modal(props){
   return(
-    <div className='modal' style={{background : props.color}}>
-      <h4>{ props.title[0] }</h4>
+    <div className='modal'>
+      <h4>{ props.title[props.modalTitle] }</h4>
       <p>날짜</p>
       <p>상세 내용</p>
       <button onClick={()=>{
@@ -76,7 +77,10 @@ function Modal(props){
         copy[0] = "여자 코트 추천";
         props.titleChange(copy); 
       }}>글 수정</button>
+
     </div>
+
+    
   );
 }
 
